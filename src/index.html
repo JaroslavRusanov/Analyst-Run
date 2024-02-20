@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Analyst run</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+        a {
+            padding: 5px;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            background-color: #0d6efd;
+            color: aliceblue;
+        }
+
+        section {
+            height: 100vh;
+        }
+
+        .back {
+            margin: auto;
+            position: relative;
+            float: right;
+        }
+    </style>
+</head>
+<body class="container">
+    <header>
+        <div class="p-3 text-bg-dark d-flex align-items-center">
+            <img src="./logo.png" class="img" alt="logo" height="60">
+            <h2>Конструктор SQL</h2>
+        </div>
+    </header>
+    <main>
+        <section id="navigation" class="text-bg-light">
+            <div class="col align-items-center text-center p-3">
+                <div class="col bg-body-secondary">
+                    <form action="{% url 'index_sqlrequest' %}">
+                        <h2>Выбор команды</h2>
+                        <a href="#drop" id='showDrop'>DROP</a>
+                        <a href="#select">SELECT</a>
+                        <a href="#create">CREATE</a>
+                        <a href="#insert">INSERT</a>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id='drop'>
+            <div class="row p-3 text-center align-items-center">
+                <div class="col-2 p-3">
+                    <h2>DROP</h2>
+                </div>
+                <div class="col-2 p-3">
+                    <h2>TABLE</h2>
+                </div>
+
+                <div class="col-4 p-3">
+                    <form method="post">
+                        <h2> Выбор схемы</h2>
+                            {% csrf_token %}
+
+                            {{ form_scheme.as_p }}
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                </div>
+
+                
+                <div class="col-4 p-3">
+                    {% if form_table %}
+                    <form method="post">
+                        <h2> Выбор таблицы</h2>
+                            {% csrf_token %}
+    
+                            {{ form_table.as_p }}
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="p-3 text-bg-light" >
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni, quo, quos natus laborum similique in aut dolores quasi perferendis quaerat dicta repellendus tempore distinctio voluptatem fuga cupiditate praesentium, laboriosam suscipit.</p>
+                <!-- <p>{{ return_text }}</p>! -->
+            </div>
+            <a href="#navigation" class="back">Назад</a>
+        </section>
+
+        <section id='select' class="p-3">
+            <div class="row p-3 align-items-center">
+                <div class="col-3 p-3">
+                    <h2>SELECT</h2>
+                </div>
+
+                <div class="col-3 p-3">
+                    <form method="post">
+                        <h2> Выбор схемы</h2>
+                        {% csrf_token %}
+                        {{ form_scheme.as_p }}
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                </div>
+
+                <div class="col-3">
+                    {% if form_table %}
+                    <form method="post">
+                        <h2> Выбор таблицы</h2>
+                        {% csrf_token %}
+                        {{ form_table.as_p }}
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                    {% endif %}
+                </div>
+
+                <div class="col-3">
+                    {% if form_column %}
+                    <form method="post">
+                        <h2> Выбор столбца</h2>
+                        {% csrf_token %}
+                        {{ form_column.as_p }}
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="p-3 text-bg-light">
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni, quo, quos natus laborum similique in aut dolores quasi perferendis quaerat dicta repellendus tempore distinctio voluptatem fuga cupiditate praesentium, laboriosam suscipit.</p>
+                <!-- <p>{{ return_text }}</p>! -->
+            </div>
+            <a href="#navigation" class="back">Назад</a>
+        </section>
+
+
+
+        <section id='create'>
+            <div class="row p-3 text-center">
+                <div class="col-2 p-3">
+                    <h2>CREATE</h2>
+                </div>
+
+                <div class="col-2 p-3">
+                    <h2>TABLE</h2>
+                </div>
+
+                <div class="col-8 p-3">
+                    <form method="post" action="{% url 'index_sqlrequest' %}">
+                        <h2> Выбор таблицы</h2>
+                        <select name="query" class="form-control-sm">
+                        <option value="Hackatons" selected>Hackatons</option>
+                        <option value="Organizers">Organizers</option>
+                        <option value="Events">Events</option>
+                        <option value="INSERT">...</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: 1rem; --bs-btn-font-size: 1rem;">Запроc</button>
+                    </form>
+                </div>
+            </div>
+            <div class='row p-3'>
+                <table class="table table-striped table-hover">
+                    <thead>
+                      <tr>
+                        <th>Название поля*</th>
+                        <th>Тип данных*</th>
+                        <th>Размерность</th>
+                        <th>Обязательность*</th>
+                        <th>РК?*</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>organizer_id</td>
+                        <td>serial</td>
+                        <td></td>
+                        <td>да</td>
+                        <td>да</td>
+                        <td><button type="submit" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: 1rem; --bs-btn-font-size: 1rem;">Запроc</button></td>
+                      </tr>
+                      <tr>
+                        <td>organizer_id</td>
+                        <td>serial</td>
+                        <td></td>
+                        <td>да</td>
+                        <td><td><button type="submit" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: 1rem; --bs-btn-font-size: 1rem;">Запроc</button></td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+
+            <div class='p-3 text-center'>
+                <td><button type="submit" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: 1rem; --bs-btn-font-size: 1rem;">Сформировать запроc</button></td>
+            </div>
+
+            <div class="p-3 text-bg-light">
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni, quo, quos natus laborum similique in aut dolores quasi perferendis quaerat dicta repellendus tempore distinctio voluptatem fuga cupiditate praesentium, laboriosam suscipit.</p>
+                <!-- <p>{{ return_text }}</p>! -->
+            </div>
+            <a href="#navigation" class="back">Назад</a>
+        </section>
+
+        <section id='insert' class="text-bg-light">
+        
+        </section>
+    </main>
+
+</body>
+</html>

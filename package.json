@@ -1,0 +1,11 @@
+{
+  "name": "analyst",
+  "version": "1.0.0",
+  "description": "layout for site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Iaroslav Rusanov sco_nuff@gmail.com",
+  "license": "ISC"
+}
